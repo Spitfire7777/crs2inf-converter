@@ -1,5 +1,5 @@
 # crs2ini converter
-crs2ini is a tool that converts CRS files made by the editor [Realworld Cursor Editor] [rwce] into INF files that can install the cursor pack.
+crs2ini is a tool that converts CRS files made by the editor [Realworld Cursor Editor] into INF files that can install the cursor pack.
 ## Usage
 ```batch
 python main.py file.crs [flags]
@@ -21,4 +21,4 @@ python main.py file.crs [flags]
 ## License
 Licensed under the CC0 v1.0 license.
 
-[rwce]: <https://www.rw-designer.com/cursor-maker>
+[Realworld Cursor Editor]: <https://www.rw-designer.com/cursor-maker>
