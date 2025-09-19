@@ -22,3 +22,5 @@ python main.py file.crs [flags]
 Licensed under the CC0 v1.0 license.
 
 [Realworld Cursor Editor]: <https://www.rw-designer.com/cursor-maker>
+
+_P.D. Sorry for the shortness, I am still learning how to use Git and Github but made this to help so if you need help I'll try to be in touch._
