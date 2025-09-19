@@ -1,5 +1,4 @@
-import configparser
-import os
+import configparser, os, ctypes
 
 def create_inf_file(name, file, output_path: str):
     
@@ -95,3 +94,17 @@ def create_inf_file(name, file, output_path: str):
         inf_installer.write(inf_file)
     
     return o_file
+
+def install_inf_file(inf_path):
+    """
+    Installs a .inf file on Windows using rundll32.
+    Requires administrative privileges, so the user will be prompted for elevation.
+    """
+    if not os.path.isfile(inf_path):
+        raise FileNotFoundError(f"{inf_path} does not exist.")
+    cmd = f"rundll32.exe setupapi,InstallHinfSection DefaultInstall 132 {inf_path}"
+    try:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", "cmd.exe", f"/c {cmd}", None, 1)
+        print(f"Successfully installed {inf_path}")
+    except Exception as e:
+        print(f"Failed to install {inf_path}: {e}")

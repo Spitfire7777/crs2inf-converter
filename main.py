@@ -7,6 +7,7 @@ def _help():
           "\n"
           "Options:\n"
           "  -h, --help                 Show this help message and exit\n"
+          "  -i, --install              Install the generated INF file after creation\n"
           "  -v, --version              Show program version and exit\n"
           "  -n, --name <name>          Specify the cursor scheme name\n"
           "  -o, --output <dir|file>    Specify the output directory/file for the INF file\n"
@@ -17,7 +18,7 @@ def main():
         _help()
         sys.exit(1)
     
-    verbose, only_convert = False, False
+    verbose, install = False, False
     c_scheme_name = "Custom Scheme"
     file = sys.argv[1]
     o_dir = os.path.dirname(file)
@@ -43,6 +44,8 @@ def main():
             case "-o" | "--output":
                 if len(args) > args.index(arg) + 1:
                     o_dir = args[args.index(arg) + 1]
+            case "-i" | "--install":
+                install = True
             case _:
                 if arg.startswith('-'):
                     print(f"Unknown option: {arg}")
@@ -54,11 +57,14 @@ def main():
           f"\nOutput directory: {o_dir}"
           f"\nConverting '{file}' with scheme name '{name}'")
     output_path = convert.create_inf_file(name, file, o_dir)
-    if not only_convert:
+    if install:
+        print(f"Installing INF file: {output_path}")
+        convert.install_inf_file(output_path)
+    else:
         print(f"INF file '{output_path}' created successfully.")
         print("To install the cursor scheme, right-click the INF file and select 'Install'.")
 
-        
+    
 
 if __name__ == "__main__":
     main()
