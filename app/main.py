@@ -1,9 +1,7 @@
-import sys
-import app.convert as convert
-import os
+import sys, convert, os
 
 def _help():
-    print("Usage: python main.py <filename> [options]\n"
+    print("Usage: crs2inf <filename> [options]\n"
           "\n"
           "Options:\n"
           "  -h, --help                 Show this help message and exit\n"
@@ -14,7 +12,7 @@ def _help():
           )
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or sys.argv[1] == "-h" or sys.argv[1] == "--help":
         _help()
         sys.exit(1)
     
