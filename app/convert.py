@@ -1,6 +1,6 @@
 import configparser, os, ctypes
 
-def create_inf_file(name, file, output_path: str):
+def create_inf_file(name, file, output_path: str, silent=False) -> str:
     
     o_file = output_path if output_path.endswith('.inf') else os.path.join(output_path, 'install.inf')
 

@@ -6,30 +6,35 @@ def _help():
           "Options:\n"
           "  -h, --help                 Show this help message and exit\n"
           "  -i, --install              Install the generated INF file after creation\n"
-          "  -v, --version              Show program version and exit\n"
           "  -n, --name <name>          Specify the cursor scheme name\n"
           "  -o, --output <dir|file>    Specify the output directory/file for the INF file\n"
-          )
+          "  -s, --silent               Run in silent mode (no prompts)\n"
+          "  -v, --version              Show program version and exit\n"
+          "\n")
 
 def main():
     if len(sys.argv) < 2 or sys.argv[1] == "-h" or sys.argv[1] == "--help":
         _help()
         sys.exit(1)
     
-    verbose, install = False, False
-    c_scheme_name = "Custom Scheme"
-    file = sys.argv[1]
+    silent, install = False, False
+    c_scheme_name = "Custom Scheme"  # Default name if not provided
+    file, args = sys.argv[1], sys.argv[2:]
+    if not os.path.isfile(file):
+        print(f"Error: File '{file}' does not exist.")
+        sys.exit(1)
     o_dir = os.path.dirname(file)
-    args = sys.argv[2:]
     
     for arg in args:   
         match arg:
             case '-h' | '--help':
                 _help()
                 sys.exit(0)
+                break
             case "-v" | "--version":
                 print("CRS to INF Converter Version 1.0")
                 sys.exit(0)
+                break
             case "-n" | "--name":
                 if len(args) > args.index(arg) + 1:
                     arg_index = args.index(arg)
@@ -44,6 +49,8 @@ def main():
                     o_dir = args[args.index(arg) + 1]
             case "-i" | "--install":
                 install = True
+            case "-s" | "--silent":
+                silent = True
             case _:
                 if arg.startswith('-'):
                     print(f"Unknown option: {arg}")
@@ -51,16 +58,15 @@ def main():
 
     name = input("Enter cursor scheme name: ") if not c_scheme_name else c_scheme_name
     
-    print(f"File to convert: {file}"
+    if not silent: print(f"File to convert: {file}"
           f"\nOutput directory: {o_dir}"
           f"\nConverting '{file}' with scheme name '{name}'")
-    output_path = convert.create_inf_file(name, file, o_dir)
+    output_path = convert.create_inf_file(name, file, o_dir, silent)
     if install:
-        print(f"Installing INF file: {output_path}")
+        if not silent: print(f"Installing INF file: {output_path}")
         convert.install_inf_file(output_path)
     else:
-        print(f"INF file '{output_path}' created successfully.")
-        print("To install the cursor scheme, right-click the INF file and select 'Install'.")
+        if not silent: print(f"INF file '{output_path}' created successfully.\nTo install the cursor scheme, right-click the INF file and select 'Install'.")
 
     
 
