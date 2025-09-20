@@ -47,10 +47,8 @@ def main():
             case "-o" | "--output":
                 if len(args) > args.index(arg) + 1:
                     o_dir = args[args.index(arg) + 1]
-            case "-i" | "--install":
-                install = True
-            case "-s" | "--silent":
-                silent = True
+            case "-i" | "--install":    install = True
+            case "-s" | "--silent":     silent = True
             case _:
                 if arg.startswith('-'):
                     print(f"Unknown option: {arg}")
@@ -64,7 +62,7 @@ def main():
     output_path = convert.create_inf_file(name, file, o_dir, silent)
     if install:
         if not silent: print(f"Installing INF file: {output_path}")
-        convert.install_inf_file(output_path)
+        convert.install_inf_file(output_path, silent)
     else:
         if not silent: print(f"INF file '{output_path}' created successfully.\nTo install the cursor scheme, right-click the INF file and select 'Install'.")
 

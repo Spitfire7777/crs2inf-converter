@@ -15,8 +15,7 @@ crs2inf file.crs [flags]
     ```
     The default path will be the original directory of the .crs file, followed by the name of the file, which by default will be `install.inf`
     
-- Using the `-i` or `--install` flag will install the cursors file given by the converter. _IMPORTANT!_ The path of the install file has to be the same path of the cursors. 
-    This will call an UAC window for the installation.
+- Using the `-i` or `--install` flag will install the cursors file given by the converter. _IMPORTANT!_ The path of the install file has to be the same path of the cursors. This will call an UAC window for the installation.
 
 ## License
 Licensed under the CC0 v1.0 license.

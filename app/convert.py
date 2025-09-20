@@ -8,7 +8,7 @@ def create_inf_file(name, file, output_path: str, silent=False) -> str:
     if not os.path.exists(o_file) and not o_file.endswith('.inf'):
         os.makedirs(o_file)
     
-    print(f"Output directory set to: {o_file}")
+    if not silent: print(f"Output directory set to: {o_file}")
 
     # Read the cursor scheme configuration file
     with open(file, 'r', encoding='utf-8-sig') as f:
@@ -49,15 +49,16 @@ def create_inf_file(name, file, output_path: str, silent=False) -> str:
             case 'Hand':        type = 'link'
             case 'Pin':         type = 'pin'
             case 'Person':      type = 'person'
-            case _: print(f"Warning: Unknown cursor type '{key}' found in configuration.")
+            case _: 
+                if not silent: print(f"Warning: Unknown cursor type '{key}' found in configuration.")
         
-        print(f"Mapping cursor '{key}' to file '{cur_dir[key]}' as type '{type}'")
+        if not silent: print(f"Mapping cursor '{key}' to file '{cur_dir[key]}' as type '{type}'")
         if type in order:
-            print(f"Found cursor type '{type}' at index {order.index(type)}")
+            if not silent: print(f"Found cursor type '{type}' at index {order.index(type)}")
             dirs[type] = r'%10%\%CUR_DIR%\%'+type+'%'
             cursors[order.index(type)] = cur_dir[key]
         else:
-            print(f"Cursor type '{type}' not in predefined order list.")
+            if not silent: print(f"Cursor type '{type}' not in predefined order list.")
         type = ""
 
     main_header = 'HKCU,"Control Panel\\Cursors\\Schemes","%SCHEME_NAME%",,"'
@@ -95,7 +96,7 @@ def create_inf_file(name, file, output_path: str, silent=False) -> str:
     
     return o_file
 
-def install_inf_file(inf_path):
+def install_inf_file(inf_path, silent=False):
     """
     Installs a .inf file on Windows using rundll32.
     Requires administrative privileges, so the user will be prompted for elevation.
@@ -105,6 +106,8 @@ def install_inf_file(inf_path):
     cmd = f"rundll32.exe setupapi,InstallHinfSection DefaultInstall 132 {inf_path}"
     try:
         ctypes.windll.shell32.ShellExecuteW(None, "runas", "cmd.exe", f"/c {cmd}", None, 1)
-        print(f"Successfully installed {inf_path}")
+        if not silent: print(f"Successfully installed {inf_path}")
     except Exception as e:
-        print(f"Failed to install {inf_path}: {e}")
+        if not silent: print(f"Failed to install {inf_path}: {e}")
+    
+    return True
