@@ -62,7 +62,11 @@ def main():
     output_path = convert.create_inf_file(name, file, o_dir, silent)
     if install:
         if not silent: print(f"Installing INF file: {output_path}")
-        convert.install_inf_file(output_path, silent)
+        try:
+            convert.install_inf_file(output_path)
+            if not silent: print(f"Successfully installed {output_path}")
+        except Exception as e:
+            if not silent: print(f"Failed to install {output_path}: {e}")
     else:
         if not silent: print(f"INF file '{output_path}' created successfully.\nTo install the cursor scheme, right-click the INF file and select 'Install'.")
 
