@@ -1,15 +1,20 @@
-import configparser, os
+import configparser
+from os import path
 from ctypes import windll
 
-def create_inf_file(name, file, output_path: str, silent=False) -> str:
+def create_inf_file(name: str, file: str, output_path: str = "", silent : bool = False) -> str:
     
-    o_file = output_path if output_path.endswith('.inf') else os.path.join(output_path, 'install.inf')
+    def_o = path.splitext(file)[0] + ".inf"
+    o_file : str
+    if not output_path:
+        o_file = def_o
+    else:
+        if path.isdir(output_path):
+            o_file = path.join(output_path, path.basename(def_o))
+        else:
+            o_file = output_path
 
-    # Ensure output path is a directory if it doesn't end with .inf
-    if not os.path.exists(o_file) and not o_file.endswith('.inf'):
-        os.makedirs(o_file)
-    
-    if not silent: print(f"Output directory set to: {o_file}")
+    if not silent: print(f"Output file set to: {o_file}")
 
     # Read the cursor scheme configuration file
     with open(file, 'r', encoding='utf-8-sig') as f:
@@ -102,7 +107,7 @@ def install_inf_file(inf_path):
     Installs a .inf file on Windows using rundll32.
     Requires administrative privileges, so the user will be prompted for elevation.
     """
-    if not os.path.isfile(inf_path):
+    if not path.isfile(inf_path):
         raise FileNotFoundError(f"{inf_path} does not exist.")
     windll.shell32.ShellExecuteW(None, "runas", 
                                 "rundll32.exe", 
