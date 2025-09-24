@@ -23,9 +23,9 @@ crs2inf file.crs [flags]
 Licensed under the GPL v3.0 license.
 
 ## Contributing
-If you want to contribute, check the [rules for contributing]
+If you want to contribute, check the [rules for contributing].
 
 [Realworld Cursor Editor]: <https://www.rw-designer.com/cursor-maker>
-[rules for contributing: <https://github.com/Spitfire7777/crs2inf-converter/blob/main/CONTRIBUTE.md>
+[rules for contributing]: <https://github.com/Spitfire7777/crs2inf-converter/blob/main/CONTRIBUTE.md>
 
 _P.D. Sorry for the shortness, I am still learning how to use Git and Github but made this to help so if you need help I'll try to be in touch._
