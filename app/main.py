@@ -1,4 +1,5 @@
-import sys, convert, os
+import sys, convert
+from os import path
 
 def _help():
     print("Usage: crs2inf <filename> [options]\n"
@@ -20,10 +21,10 @@ def main():
     silent, install = False, False
     c_scheme_name = "Custom Scheme"  # Default name if not provided
     file, args = sys.argv[1], sys.argv[2:]
-    if not os.path.isfile(file):
+    if not path.isfile(file):
         print(f"Error: File '{file}' does not exist.")
         sys.exit(1)
-    o_dir = os.path.dirname(file)
+    o_dir = path.dirname(file)
     
     for arg in args:   
         match arg:
