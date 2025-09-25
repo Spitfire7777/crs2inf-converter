@@ -17,3 +17,5 @@ If you wish to suggest a new feature, you can title it "Feature: " followed by a
 ## Bugs and problems
 
 The same happens with bugs and problems, in that case you can write it down and explain your problem with the tool.
+
+_P.D. Again sorry for the shortness of this contribute file since I'm new with GitHub and open sourcing my code_
